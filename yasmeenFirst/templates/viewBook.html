@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <title>View Books</title>
+    <style>
+    .contianer{
+    width:1000px;
+    margin:100px;
+    display: flex;
+    justify-content: space-between;
+    }
+    input[type=submit]{
+        margin-left: 10px;
+        height: 15px;
+        font-size: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div class="contianer">
+        <table>
+            <tr>
+                <td><h1>{{books.title}}</h1></td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>{{books.id}}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{books.description}}</td>
+            </tr>
+            <tr>
+                <td>Authors : 
+                    <ul>
+                        {% for author in author_book %}
+                        <li>{{author.first_name}} {{author.last_name}}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="contianer">
+    <form action="/addAutherToBook" method="post">
+        {% csrf_token %}
+            <select name="selectauthor"  placeholder="Select an author">
+                {% for author in authors %}
+                <option value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+                {% endfor %}
+            </select>
+        <input type="hidden" name="book_id" value="{{books.id}}">
+        <input type="submit" value="Add">
+    </form>
+    </div>
+</body>
+</html>

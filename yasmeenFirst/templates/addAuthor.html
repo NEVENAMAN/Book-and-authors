@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Author</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/docs_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <style>
+    .contianer{
+    width:1000px;
+    margin:100px;
+    display: flex;
+    justify-content: space-between;
+    }
+    .contianer input[type=text]{
+        margin-left: 55px;
+        margin-bottom: 20px;
+    }
+    .contianer textarea,input[type=submit]{
+        margin-left: 135px;
+        margin-top:-10px;
+    }
+    .contianer input[type=submit]{
+        margin-top:20px;
+        box-shadow: 4px 4px 4px;
+        width:80px;
+        height: 30px;
+        font-size: 18px;
+    } 
+    .contianer #titl{
+    margin-left: 100px;
+    }
+    </style>
+</head>
+<body>
+   <div class="contianer">
+    <div class="addBook">
+        <h1>Add an author</h1><br>
+        <form action="/addAuthor_method" method="post">
+            {% csrf_token %}
+            First Name <input type="text" name="first_name"><br>
+            Last Name <input type="text" name="last_name"><br>
+            Notes <br><textarea name="notes" cols="20" rows="5"></textarea><br>
+            <input type="submit" value="Add">
+        </form>
+    </div>
+    <div class="listBook">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for author in authors %}
+              <tr>
+                <th scope="row">{{author.id}}</th>
+                <td>{{author.first_name}} {{author.last_name}}</td>
+                <td>
+                  <form action="/view_authors" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="view"/>
+                    <input type="hidden" name="authorID" value="{{author.id}}"/>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+    </div>
+   </div>
+
+</body>
+</html>

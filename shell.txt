@@ -1,0 +1,97 @@
+1-
+ >>> bookOne=Book.objects.create(title = "lost time",desc="swann way")
+>>> Book.objects.all()
+<QuerySet [<Book: Book object (1)>]>
+>>> bookTwo=Book.objects.create(title = "Ulysses",desc="chronicles the passage")
+>>> bookThree=Book.objects.create(title = " Don Quixote",desc="Alonso Quixano")
+
+2-
+>>> authorOne=Author.objects.create(first_name="Marcel", last_name = "Proust")
+>>> authorTwo =Author.objects.create(first_name="James", last_name = "Joyce")
+>>> authorThree = Author.objects.create(first_name="Miguel", last_name = "Cervantes")
+
+3-
+>>> bookOne.authors.add(authorOne)
+>>> authorOne.books.add(bookOne)
+
+4-
+>>> bookTwo.authors.add(authorTwo)
+>>> authorTwo.books.add(bookTwo)
+
+5-
+>>> bookThree.authors.add(authorThree)
+>>> authorThree.books.add(bookThree)
+
+6-
+>>> Jane_Austen =Author.objects.create(first_name="Jane",last_name= "Austen")
+>>> Emily_Dickinson=Author.objects.create(first_name="Emily",last_name="Dickinson")
+>>> Fyodor_Dostoevsky=Author.objects.create(first_name="Fyodor",last_name="Dostoevsky")
+>>> William_Shakespeare=Author.objects.create(first_name="William",last_name= "Shakespeare")
+>>> Lau_Tzu = Author.objects.create(first_name="Lau",last_name="Tzu")
+
+7-
+Migrations for 'yasmeenFirst':
+  yasmeenFirst\migrations\0002_author_notes.py
+    - Add field notes to author
+8-
+>>> c = Book.objects.get(id = 4)
+>>> c.title = "C#"
+>>> c.save()
+
+9-
+>>> a=Author.objects.get(id=4)
+>>> a.first_name = "bill"
+>>> a.save()
+
+10-
+ >>>marcel = Author.objects.get(id=1)
+>>> C = Book.objects.get(id = 4)
+>>> java = Book.objects.get(id=5)
+>>> marcel.books.add(C)
+>>> C.authors.add(marcel)
+>>> marcel.books.add(java)
+>>> java.authors.add(marcel)
+
+11-
+> james.books.add(C)
+>>> C.authors.add(james)
+>>> james.books.add(java)
+>>> java.authors.add(james)
+>>> python=Book.objects.get(id=6)
+>>> james.books.add(python)
+>>> python.authors.add(james)
+
+12-
+>>> migeal = Author.objects.get(id=3)
+>>> migeal.books.add(C)
+>>> C.authors.add(migeal)
+>>> migeal.books.add(java)
+>>> java.authors.add(migeal)
+>>> migeal.books.add(python)
+>>> python.authors.add(migeal)
+>>> migeal.books.add(php)
+>>> php.authors.add(migeal)
+
+13-
+>>> python.authors.all()
+<QuerySet [<Author: Author object (2)>, <Author: Author object (3)>]>
+
+14-
+>>> a = python.authors.get(id=2)
+>>> a.remove()
+>>> a.delete()
+(5, {'yasmeenFirst.Author_books': 4, 'yasmeenFirst.Author': 1})
+
+15-
+>>> c = Author.objects.get(id=5)
+>>> java.authors.add(c)
+>>> c.books.add(java)
+
+16-
+>>> migeal.books.all()
+<QuerySet [<Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>, <Book: Book object (6)>, <Book: Book object (7)>]>
+
+17-
+>>> java.authors.all()
+<QuerySet [<Author: Author object (1)>, <Author: Author object (3)>, <Author: Author object (5)>]>
+

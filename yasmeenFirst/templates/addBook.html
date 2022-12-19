@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a book</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css' %}" > 
+    <link rel="stylesheet" href="{% static 'css/docs_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+</head>
+<body>
+   <div class="contianer">
+    <div class="addBook">
+        <h1>Add a book</h1><br>
+        <form action="/addBook_method" method="post">
+            {% csrf_token %}
+            Title <input type="text" name="title" id="titl"><br>
+            Description <br><textarea name="description" cols="20" rows="5"></textarea><br>
+            <input type="submit" value="Add">
+        </form>
+    </div>
+    <div class="listBook">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Action</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for book in books %}
+              <tr>
+                <th scope="row">{{book.id}}</th>
+                <td>{{book.title}}</td>
+                <td>
+                  <form action="/view_books" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="view">
+                    <input type="hidden" name="bookID" value="{{book.id}}">
+
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+    </div>
+   </div>
+
+</body>
+</html>
